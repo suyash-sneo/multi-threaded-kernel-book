@@ -1,0 +1,6 @@
+Necessary software I installed:
+
+- brew install nasm
+- brew install qemu
+
+This should be enough to run the first "Hello World bootloader"

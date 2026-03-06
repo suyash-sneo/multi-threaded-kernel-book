@@ -1,0 +1,33 @@
+ORG 0x7c00  ; This tells NAMS where in memory our program will run
+
+BITS 16     ; We are writing 16-bit code
+
+start:
+    mov si, message ; Address of 'message' move into SI
+    call print      ; Call our print function
+    jmp $           ; Infinite loop, GOTO THIS instruction
+
+print:
+    mov bx, 0       ; Clear BX register to use it as a counter
+
+.loop:
+    lodsb           ; Lead the byte at address SI into AL and increment SI
+
+    cmp al, 0       ; Compare the value in AL to 0 (end of string)
+    je .done        ; If AL is 0, then we're at the end of string and we're done
+    call print_char ; Otherwise, print the character in AL
+    jmp .loop       ; Loop to the next character
+
+.done:
+    ret             ; Return from the print function
+
+print_char:
+    mov ah, oeh     ; Move oeh into AH, this is the BIOS service number for printing a character
+    int 0x10        ; Call BIOS interrup 0x10, which handles screen operations
+    ret             ; Returns from print_char function
+
+message: db 'Hello, World!', 0  ; Our null-terminated string to be printed
+
+times 510-($ - $$) db 0         ; Fill the rest of the sector with zeros upto 510 bytes
+
+dw 0xAA55           ; The boot sector signature
