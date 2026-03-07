@@ -1,0 +1,1 @@
+brew install i686-elf-binutils i686-elf-gcc i386-elf-gdb
