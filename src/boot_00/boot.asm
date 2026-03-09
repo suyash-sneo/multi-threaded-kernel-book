@@ -1,4 +1,4 @@
-ORG 0x7c00  ; This tells NAMS where in memory our program will run
+ORG 0x7c00  ; This tells NASM where in memory our program will run
 
 BITS 16     ; We are writing 16-bit code
 
